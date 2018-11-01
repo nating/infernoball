@@ -61,19 +61,22 @@ elif(sys.argv[1]=='generate-next-layer'):
         else:
             print("Error: Not sure what type of hash %s is." % hash)
 
-    with open(next_layer_folder+'/argon.txt', 'w') as f:
+    if not os.path.exists(next_layer_folder+'/hashes'):
+        os.makedirs(next_layer_folder+'/hashes')
+
+    with open(next_layer_folder+'/hashes/argon.txt', 'w') as f:
         for hash in argons:
             f.write(hash+"\n")
 
-    with open(next_layer_folder+'/PBKDF2.txt', 'w') as f:
+    with open(next_layer_folder+'/hashes/PBKDF2.txt', 'w') as f:
         for hash in pbkdf2s:
             f.write(hash+"\n")
 
-    with open(next_layer_folder+'/sha1crypt.txt', 'w') as f:
+    with open(next_layer_folder+'/hashes/sha1crypt.txt', 'w') as f:
         for hash in sha1crypts:
             f.write(hash+"\n")
 
-    with open(next_layer_folder+'/SHA512.txt', 'w') as f:
+    with open(next_layer_folder+'/hashes/SHA512.txt', 'w') as f:
         for hash in sha512s:
             f.write(hash+"\n")
 
