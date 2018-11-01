@@ -98,7 +98,7 @@ def get_secret(path_to_infernoball,path_to_potfile):
 
     # Check that the secret is correct
     if secret != pwds_shares_to_secret(passwords[:-1],indexes[:-1],shares):
-        print("You do not have enough passwords cracked yet")
+        print("You do not have enough passwords cracked yet.")
         sys.exit(1)
     else:
         return secret

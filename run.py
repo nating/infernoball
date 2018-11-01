@@ -31,7 +31,20 @@ path_to_potfile = sys.argv[3]
 secret = get_secret(path_to_infernoball,path_to_potfile)
 
 if(sys.argv[1]=='generate-secret'):
-    print(secret)
+    print("Secret: %s" % secret)
+
+    # Check for presence of secret in team18.secrets
+    with open("team18.secrets", "r") as secrets_file:
+    	secrets = secrets_file.readlines()
+        if secret in map(str.strip, secrets):
+            print("Secret already in team18.secrets.")
+            sys.exit(0)
+
+    # Write new secret to secrets file
+    with open("team18.secrets", "a") as secrets_file:
+        secrets_file.write(secret)
+        print("team18.secrets has been updated.")
+        sys.exit(0)
 
 elif(sys.argv[1]=='generate-next-layer'):
 
