@@ -2,12 +2,15 @@
 import sys
 import os
 import json
-from infernoball_functions import get_secret, decrypt, read_infernoball
+from infernoball_functions import get_secret, decrypt, read_infernoball, combine_wordlists
 
 #------------------ SYS ARG ERRORS ------------------
 
-if( (len(sys.argv)==4 and sys.argv[1]!='generate-secret') or (len(sys.argv)==5 and sys.argv[1]!='generate-next-layer') or len(sys.argv)>5 or len(sys.argv)<4):
+if( (len(sys.argv)==4 and sys.argv[1]!='generate-secret')
+    or (len(sys.argv)==5 and sys.argv[1] not in ['generate-next-layer','combine-wordlists'])
+    or len(sys.argv)>5 or len(sys.argv)<4):
     print("Error: Command should look like one of:\n " \
+        + "python run.py combine-wordlists <path_to_wordlist_1> <path_to_wordlist_2> <path_to_output_file>\n" \
         + "python run.py generate-secret <path_to_infernoball> <path_to_potfile>\n" \
         + "python run.py generate-next-layer <path_to_infernoball> <path_to_potfile> <next_layer_folder>")
     sys.exit(1)
@@ -20,11 +23,19 @@ if( not os.path.isfile(sys.argv[3])):
     print("Error: %s is not a file." % sys.argv[3])
     sys.exit(1)
 
-if( len(sys.argv)==5 and not os.path.isdir(sys.argv[4])):
+if( sys.argv[1]=='generate-next-layer' and not os.path.isdir(sys.argv[4])):
     print("Error: %s is not a directory." % sys.argv[4])
     sys.exit(1)
 
 #------------------ MAIN CODE ------------------
+
+
+if(sys.argv[1]=='combine-wordlists'):
+    print("Combining Wordlists...")
+    combine_wordlists(sys.argv[2], sys.argv[3], sys.argv[4])
+    print("Done.")
+    sys.exit(0)
+
 
 path_to_infernoball = sys.argv[2]
 path_to_potfile = sys.argv[3]

@@ -102,3 +102,22 @@ def get_secret(path_to_infernoball,path_to_potfile):
         sys.exit(1)
     else:
         return secret
+
+
+# Create a wordlist that is essentially the result of a combinator of file_1+file_2
+def combine_wordlists(file_1,file_2,output_file):
+
+	second_words = []
+	with open(file_2, "r") as second_wordlist_file:
+		print("Getting file 1 contents.")
+		second_wordlist = second_wordlist_file.readlines()
+		for word in second_wordlist:
+			second_words.append(word)
+
+	with open(output_file,"w") as output:
+		with open(file_1, "r") as first_wordlist_file:
+			print("Creating wordlist.")
+			first_wordlist = first_wordlist_file.readlines()
+			for word_1 in first_wordlist:
+				for word_2 in second_words:
+					output.write("%s%s\n" % (word_1.strip(),word_2.strip()))
