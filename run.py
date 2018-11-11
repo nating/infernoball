@@ -46,7 +46,7 @@ if(sys.argv[1]=='generate-secret'):
 
     # Check for presence of secret in team18.secrets
     with open("team18.secrets", "r") as secrets_file:
-    	secrets = secrets_file.readlines()
+        secrets = secrets_file.readlines()
         if secret in map(str.strip, secrets):
             print("Secret already in team18.secrets.")
             sys.exit(0)
